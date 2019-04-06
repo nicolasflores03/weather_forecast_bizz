@@ -1,0 +1,96 @@
+
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+      <div class="inner">
+        <h3 class="masthead-brand">Weather</h3>
+        <nav class="nav nav-masthead justify-content-center">
+          <a class="nav-link" href="index.html?city=tokyo">Tokyo</a>
+          <a class="nav-link" href="index.html?city=yokohama">Yokohama</a>
+          <a class="nav-link" href="index.html?city=kyoto">Kyoto</a>
+          <a class="nav-link" href="index.html?city=osaka">Osaka</a>
+          <a class="nav-link" href="index.html?city=sapporo">Sapporo</a>
+          <a class="nav-link" href="index.html?city=nagoya">Nagoya</a>
+        </nav>
+      </div>
+      <link rel="stylesheet" href="dist/css/bootstrap.css">
+      <link rel="stylesheet" href="dist/css/cover.css">
+    </header>
+  
+    <main role="main" class="inner cover weather_div">
+       <script>
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+        </script>
+    </main>
+
+    <footer class="mastfoot mt-auto">
+      <div class="inner">
+        
+      </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" />
+    </script>
+    <script type="text/javascript">
+        var api_url = "https://api.openweathermap.org/data/2.5/forecast?appid=78a6797e6046f65d78faafbb041f11ad&q=";
+    
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var c = "tokyo";
+        if(url.searchParams.get("city")) {
+            var c = url.searchParams.get("city");
+        }
+
+        var weather_link = '<a class="weatherwidget-io" href="https://forecast7.com/en/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-days="5" data-theme="pure" >TOKYO WEATHER</a>  ';
+        switch (c){
+            case "tokyo":
+                weather_link = '<a class="weatherwidget-io" href="https://forecast7.com/en/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-days="5" data-theme="pure" >TOKYO WEATHER</a>  ';
+                api_url = api_url + "tokyo";
+    
+            break;
+            case "yokohama":
+                weather_link = ' <a class="weatherwidget-io" href="https://forecast7.com/en/35d44139d64/yokohama/" data-label_1="YOKOHAMA" data-label_2="WEATHER" data-days="5" data-theme="pure" >YOKOHAMA WEATHER</a>';
+                api_url = api_url + "yokohama-shi";
+        
+            break;
+            case "kyoto":
+                weather_link = '<a class="weatherwidget-io" href="https://forecast7.com/en/35d02135d76/kyoto-prefecture/" data-label_1="KYOTO" data-label_2="WEATHER" data-days="5" data-theme="pure" >KYOTO WEATHER</a>';
+                api_url = api_url + "kyoto";
+        
+            break;
+            case "osaka":
+                weather_link = '<a class="weatherwidget-io" href="https://forecast7.com/en/34d69135d50/osaka/" data-label_1="OSAKA" data-label_2="WEATHER" data-days="5" data-theme="pure" >OSAKA WEATHER</a>';
+                api_url = api_url + "osaka-shi";
+    
+            break;
+            case "sapporo":
+                weather_link = '<a class="weatherwidget-io" href="https://forecast7.com/en/43d06141d35/sapporo/" data-label_1="SAPPORO" data-label_2="WEATHER" data-days="5" data-theme="pure" >SAPPORO WEATHER</a>';
+                api_url = api_url + "sapporo-shi";
+    
+            break;
+            case "nagoya":
+                weather_link = '<a class="weatherwidget-io" href="https://forecast7.com/en/35d18136d91/nagoya/" data-label_1="NAGOYA" data-label_2="WEATHER" data-days="5" data-theme="pure" >NAGOYA WEATHER</a>';
+                api_url = api_url + "nagoya-shi";
+    
+            break;
+        }
+
+        $(".nav-link").each(function(i,e){
+            if($(e).text().toLowerCase() == c) {
+                $(e).addClass("active");
+            }
+        });
+
+        $( ".weather_div" ).prepend(weather_link);
+        $("body").css('background-image', 'url("images/'+c+'.jpg")');
+  
+        $(document).ready(function(e){
+            //did not got time to implement this i used other library instead.
+            $.get(api_url, function(data, status){
+                console.log(data);
+            });
+         });
+    </script>
+  
+  </div>
+  
+
